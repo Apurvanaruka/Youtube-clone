@@ -4,8 +4,8 @@ import { YOUTUBE_DATA_API, JSON } from "../constant";
 import { Link } from "react-router-dom";
 import ButtonHeader from "./ButtonHeader";
 
-const VideoContainer = ()=>{
 
+const VideoContainer = ()=>{
     const [videos, setVideos] = useState([]);
 
     useEffect(()=>{
@@ -22,8 +22,8 @@ const VideoContainer = ()=>{
 
     return (
         <div>
-            <ButtonHeader />
-        <div className="col-span-11 flex flex-wrap justify-evenly space-y-5">
+            {/* <ButtonHeader /> */}
+        <div className="flex flex-wrap justify-center h-screen overflow-scroll no-scrollbar">
             {videos.map((video,index) =><Link to={"watch?v="+video.id}><VideoCard info={video} key={video.id}/></Link> )}
         </div>
         </div>

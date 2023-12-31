@@ -1,11 +1,16 @@
-import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
-const Body = ()=>{
+import Header from "./Header";
+import { Outlet } from "react-router-dom";
+
+const Body = () => {
     return (
-        <div className="grid grid-flow-col">
-            <SideBar />
-            <Outlet/>
-        </div>
+        <>
+            <Header />
+            <div className="flex">
+                <SideBar />
+                <Outlet />
+            </div>
+        </>
 
     )
 }

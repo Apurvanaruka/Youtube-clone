@@ -1,7 +1,11 @@
+import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { closeMenu } from "../utils/appSlice";
 
 
 const WatchVideo = () => {
+    const dispatch = useDispatch();
+    dispatch(closeMenu());
     const [searchParam] = useSearchParams();
 
     console.log(searchParam.get('v'));
