@@ -13,7 +13,8 @@ const WatchVideo = () => {
     return (
         <div>
             <h1>watch page</h1>
-            <iframe width="900" height="500" src={src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="799rem" height="500rem" src={src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <h1>comment </h1>
                 </div>
     )
 }

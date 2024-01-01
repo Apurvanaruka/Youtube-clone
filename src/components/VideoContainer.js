@@ -24,7 +24,7 @@ const VideoContainer = ()=>{
         <div>
             {/* <ButtonHeader /> */}
         <div className="flex flex-wrap justify-center h-screen overflow-scroll no-scrollbar">
-            {videos.map((video,index) =><Link to={"watch?v="+video.id}><VideoCard info={video} key={video.id}/></Link> )}
+            {videos.map((video,index) =><Link to={"watch?v="+video.id}  key={video.id}><VideoCard info={video}/></Link> )}
         </div>
         </div>
     )
