@@ -1,26 +1,34 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
+import { addCache } from "../utils/cacheSlice";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {YOUTUBE_SUGGESTION_API} from "../constant"
 
 const Header = () => {
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState("");
     const [searchSuggestion, setSearchSuggestion] = useState([]);
     const [showSuggestion , setShowSuggestion ] = useState(false);
+    const suggestionData = useSelector((state)=>state.suggestionCache.suggestions);
 
     useEffect(() => {
-        const Timer = setTimeout(() => getSearchSuggestion(), 200);
-        return (() => {
-            clearTimeout(Timer);
-        });
+            if (Object.keys(suggestionData).includes(searchQuery)){
+                setSearchSuggestion(suggestionData[searchQuery])
+            }else{
+                const Timer = setTimeout(() => getSearchSuggestion(), 200);   
+                return (() => {
+                    clearTimeout(Timer);
+                });
+            }
+        
     }, [searchQuery])
 
     async function getSearchSuggestion() {
-        const response = await fetch('https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=' + searchQuery);
+        const response = await fetch(YOUTUBE_SUGGESTION_API + searchQuery);
         const data = await response.json()
         setSearchSuggestion(data[1]);
-
+        dispatch(addCache({[searchQuery]:searchSuggestion}));
     }
 
     return (
