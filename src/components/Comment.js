@@ -1,11 +1,9 @@
 
-const Comment = ({ comment }) => {
+export const Comment = ({ comment }) => {
     const { authorProfileImageUrl,authorDisplayName,textDisplay} = comment?.snippet?.topLevelComment?.snippet;
-    // console.log(comment?.snippet?.topLevelComment?.snippet);
-    console.log(authorProfileImageUrl);
 
     return (
-        <div className="bg-red-300 m-1">
+        <div className="m-1">
             <div className="flex bg-slate-100 rounded-lg">
                 <div className="m-2">
                     <img className="rounded-full w-8" alt="" src={authorProfileImageUrl}/>
@@ -25,17 +23,10 @@ const Comment = ({ comment }) => {
 }
 
 
-const comment = {
-    name: "prince",
-    message: "prince is IAS",
-    replies: [{}]
-}
-
 
 const CommentList = ({ commentData }) => {
-    // console.log(commentData)
     return (
-        <div className=" w-7/12">
+        <div className="w-fit">
         {
             commentData?.map((comment, index) => <Comment key={index} comment={comment} />)
         }
