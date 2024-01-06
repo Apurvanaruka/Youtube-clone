@@ -26,3 +26,18 @@ export function generateName() {
     return finalName;
 };
 
+export const NewLine = ({text})=>{
+    const linesList = text.split('\n')
+    return linesList.map((line,index)=><p key={index}>{line}</p>)
+} 
+
+
+export  function convertMillionToK(number) {
+    if (number >= 1000000) {
+      return number / 1000000 + "M";
+    } else if (number >= 1000) {
+      return number / 1000 + "K";
+    } else {
+      return number;
+    }
+  }
