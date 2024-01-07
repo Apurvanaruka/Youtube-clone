@@ -2,10 +2,11 @@ import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { closeMenu } from "../utils/appSlice";
 import CommentList from "./Comment";
-import { COMMENTS, YOUTUBE_COMMENT_API, COMMENT_JSON, YOUTUBE_VIDEO_INFO_API, YOUTUBE_VIDEO_INFO } from "../constant"
+import { COMMENTS, YOUTUBE_API_KEY, COMMENT_JSON, YOUTUBE_VIDEO_INFO_API, YOUTUBE_VIDEO_INFO } from "../constant"
 import { useEffect, useState } from "react";
 import LiveChat from "./LiveChat";
 import VideoInfo from "./VideoInfo";
+
 
 
 const WatchVideo = () => {
@@ -35,6 +36,7 @@ const WatchVideo = () => {
         // const response = await fetch(YOUTUBE_VIDEO_INFO_API+videoId);
         // const data = await response.json();
         // setVideoInfo(data.items[0]);     
+       
         setVideoInfo(YOUTUBE_VIDEO_INFO.items[0]);
     }
 

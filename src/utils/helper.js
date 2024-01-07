@@ -27,8 +27,8 @@ export function generateName() {
 };
 
 export const NewLine = ({text})=>{
-    const linesList = text.split('\n')
-    return linesList.map((line,index)=><p key={index}>{line}</p>)
+    const linesList = text?.split('\n')
+    return linesList?.map((line,index)=><p key={index}>{line}</p>)
 } 
 
 
