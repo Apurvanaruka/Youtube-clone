@@ -1,20 +1,9 @@
 import { Link } from "react-router-dom";
 import { NewLine,convertMillionToK } from "../utils/helper";
 import { useEffect, useState } from "react";
-import { YOUTUBE_CHANNEL_INFO_API } from "../constant";
 
-const VideoInfo = ({info}) => {
-    const [channelInfo, setChannelInfo] = useState();
-    // console.log(channelInfo)
-    useEffect(()=>{
-        getChannelInfo();
-    },[]);
-
-    async function getChannelInfo(){
-        const response = await fetch(YOUTUBE_CHANNEL_INFO_API+info?.snippet?.channelId);
-        const json = await response.json();
-        setChannelInfo(json?.items?.[0]);
-    }
+const VideoInfo = ({info, channelInfo}) => {
+  console.log(channelInfo); 
     return (
         <div className="p-1">
             <h1 className="text-xl font-medium">{info?.snippet?.title}</h1>
@@ -34,7 +23,7 @@ const VideoInfo = ({info}) => {
                 <button className="px-3 py-1 m-1 rounded-full bg-gray-200">...</button>
             </div>
             <div className="bg-gray-200 rounded-xl p-3">
-                <p>{convertMillionToK(info?.statistics?.viewCount)} views 2 months ago  #tag1 #tag2 #tag3</p>
+                <p>{convertMillionToK(info?.statistics?.viewCount)} views   #tag1 #tag2 #tag3</p>
                 <div>
                 <NewLine text={info?.snippet?.description}/> 
               </div>

@@ -34,9 +34,9 @@ export const NewLine = ({text})=>{
 
 export  function convertMillionToK(number) {
     if (number >= 1000000) {
-      return number / 1000000 + "M";
+      return Math.round((number / 1000000)*10)/10 + "M";
     } else if (number >= 1000) {
-      return number / 1000 + "K";
+      return Math.round(number / 1000) + "K";
     } else {
       return number;
     }

@@ -32,7 +32,7 @@ const Header = () => {
     }
 
     return (
-        <div className="flex items-center h-14 w-screen">
+        <div className="flex items-center h-14 w-screen" >
             <svg className="ml-6 " onClick={() =>
                 dispatch(toggleMenu())
             } xmlns="http://www.w3.org/2000/svg" height="25" width="25" viewBox="0 0 448 512">
@@ -49,15 +49,15 @@ const Header = () => {
             </Link>
             <div className="col-span-10 w-full flex justify-center items-center">
                 <div className="w-1/2">
-                    <input onChange={(e) => setSearchQuery(e.target.value)} onFocus={()=>(setShowSuggestion(true))} onBlur={()=>(setShowSuggestion(false))} value={searchQuery} className="w-full pl-5 h-10 rounded-l-full border-y-2 border-l-2 border-gray-200" placeholder="Search" />
+                    <input onChange={(e) => setSearchQuery(e.target.value)} onFocus={()=>{setShowSuggestion(true)}} onBlur={()=>setShowSuggestion(false)}  value={searchQuery} className="w-full pl-5 h-10 rounded-l-full border-y-2 border-l-2 border-gray-200" placeholder="Search" />
                     {showSuggestion && <ul className=" absolute w-[41.5%] rounded-2xl mx-1 bg-white">
                         {
-                            searchSuggestion.map((suggestion) => (<li key={suggestion} className="shadow-sm p-2 flex items-center hover:bg-gray-100 hover:rounded-xl"> <svg className="mr-3" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" /></svg>
+                            searchSuggestion.map((suggestion) => (<li key={suggestion} onClick={()=>{setSearchQuery(suggestion)}} className="shadow-sm p-2 flex items-center hover:bg-gray-100 hover:rounded-xl"> <svg className="mr-3" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" /></svg>
                             {suggestion}</li>) )
                         }           
                     </ul>}
                 </div>
-                <button className=" px-6 h-10 rounded-r-full border-y-2 border-l-2 border-gray-300 bg-gray-200">
+                <button className=" px-6 h-10 rounded-r-full border-y-2 border-l-2 border-gray-300 bg-gray-200" onClick={console.log('done')} >
                     <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" /></svg>
                 </button>
             </div>

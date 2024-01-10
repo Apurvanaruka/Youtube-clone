@@ -6,6 +6,8 @@ export const YOUTUBE_SUGGESTION_API = 'https://suggestqueries.google.com/complet
 export const YOUTUBE_COMMENT_API = `https://www.googleapis.com/youtube/v3/commentThreads?key=${YOUTUBE_API_KEY}&textFormat=plainText&part=snippet&maxResults=50&videoId=`;
 export const YOUTUBE_VIDEO_INFO_API = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&key=" + YOUTUBE_API_KEY + "&id=";
 export const YOUTUBE_CHANNEL_INFO_API = "https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails,statistics&key="+YOUTUBE_API_KEY+"&id=";
+export const YOUTUBE_SEARCH_API = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&type=video&key=${YOUTUBE_API_KEY}&q=`;
+
 
 export const COMMENTS = [
   {
