@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { YOUTUBE_API_KEY } from "../constant";
 
 const ButtonHeader = () => {
     // const buttonList = ['All', 'Mixes', 'JavaScript', 'Music', 'AI', 'Live', 'Data Structure', 'Machine Learning', 'Computers and Information technology', 'Algorithms', 'Mantras', 'News', 'Comedy', 'New to you', 'Recently uploaded', 'Thoughts', 'Sales', 'Motivation']
@@ -9,7 +10,7 @@ const ButtonHeader = () => {
     },[]);
 
     async function getButtonlist(){
-        const response = await fetch('https://youtube.googleapis.com/youtube/v3/videoCategories?part=snippet&hl=en&regionCode=in&key=AIzaSyA8ItaMF0kKd43YrVPtY-SAYLQhGq-j1Pk')
+        const response = await fetch('https://youtube.googleapis.com/youtube/v3/videoCategories?part=snippet&hl=en&regionCode=in&key='+YOUTUBE_API_KEY)
         const data = await response.json();
         console.log(data?.items);
         setButtonList(data?.items);
