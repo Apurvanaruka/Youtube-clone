@@ -1,13 +1,15 @@
 import { JSON } from "../constant";
 import { convertMillionToK } from "../utils/helper";
+import { Link } from "react-router-dom";
+
 
 const SearchCard = ({ item }) => {
     return (
-        <div className="flex h-fit p-1">
+        <div className="flex h-fit p-1 m-2">
             <div className="rounded-xl  mx-1">
                 <img className="rounded-xl h-52 w-96 object-cover" alt="" src={item?.snippet?.thumbnails.high.url}></img>
             </div>
-            <div>
+            <div className="">
                 <h1 className="font-bold">{item?.snippet?.title}</h1>
                 <p>{convertMillionToK(item?.statistics?.viewCount)} views {item?.snippet?.publishedAt}</p>
                 <div className="flex p-1 py-3">
@@ -24,8 +26,8 @@ const SearchCard = ({ item }) => {
 
 const SearchPage = () => {
     return (
-        <div className="h-screen overflow-y-scroll">
-            {JSON.items.map((item) => <SearchCard key={item.id} item={item} />)}
+        <div className="h-screen overflow-y-scroll w-full">
+            {JSON.items.map((item) => <Link to={'/watch?v='+item.id} key={item.id}><SearchCard  item={item} /></Link>)}
         </div>
     )
 }
