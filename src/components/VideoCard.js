@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 import { convertMillionToK } from "../utils/helper";
+import useChannel from "../utils/useChannel";
 
 
 const VideoCard = ({ info }) => {
     const showMenu = useSelector((state) => state.toggle.showMenu);
+    const channelInfo = useChannel(info?.snippet?.channelId);
 
     return (showMenu ? (
         <div className="w-80 m-2">
@@ -12,7 +14,7 @@ const VideoCard = ({ info }) => {
             </div>
             <div className="flex ">
                 <div className="p-2">
-                    <img className=" rounded-full object-cover w-9 h-9" alt="" src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" />
+                    <img className=" rounded-full object-cover max-w-9 max-h-9" alt="" src={channelInfo?.snippet?.thumbnails?.default?.url}/>
                 </div>
                 <div className="">
                     <div className="flex max-h-11 max-w-96 font-bold overflow-hidden">
@@ -30,7 +32,7 @@ const VideoCard = ({ info }) => {
             </div>
             <div className="flex ">
                 <div className="p-2">
-                    <img className=" rounded-full object-cover w-9 h-9" alt="" src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" />
+                    <img className=" rounded-full object-cover max-w-8 max-h-8" alt="" src={channelInfo?.snippet?.thumbnails?.default?.url}/>
                 </div>
                 <div className="">
                     <div className="flex max-h-11 max-w-96 font-bold overflow-hidden">

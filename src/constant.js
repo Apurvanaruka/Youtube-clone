@@ -1,12 +1,12 @@
-export const YOUTUBE_API_KEY = 'AIzaSyCfnqn5dM34-anhoGs7w4gSg4iS82oXyEs';
+export const YOUTUBE_API_KEY = 'AIzaSyAO71Uurxiuhbl-GurvK083YBSO1AzOTpA';
 
 
-export const YOUTUBE_DATA_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key=" + YOUTUBE_API_KEY;
+export const YOUTUBE_DATA_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&maxResults=5&regionCode=IN&key=" + YOUTUBE_API_KEY;
 export const YOUTUBE_SUGGESTION_API = 'https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q='
 export const YOUTUBE_COMMENT_API = `https://www.googleapis.com/youtube/v3/commentThreads?key=${YOUTUBE_API_KEY}&textFormat=plainText&part=snippet&maxResults=50&videoId=`;
 export const YOUTUBE_VIDEO_INFO_API = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&key=" + YOUTUBE_API_KEY + "&id=";
 export const YOUTUBE_CHANNEL_INFO_API = "https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails,statistics&key="+YOUTUBE_API_KEY+"&id=";
-export const YOUTUBE_SEARCH_API = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&type=video&key=${YOUTUBE_API_KEY}&q=`;
+export const YOUTUBE_SEARCH_API = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&type=video&regionCode=IN&key=${YOUTUBE_API_KEY}&q=`;
 
 
 export const COMMENTS = [

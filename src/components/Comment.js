@@ -4,7 +4,7 @@ export const Comment = ({ comment }) => {
 
     return (
         <div className="m-1">
-            <div className="flex bg-slate-100 rounded-lg">
+            <div className="flex rounded-lg">
                 <div className="m-2">
                     <img className="rounded-full w-8" alt="" src={authorProfileImageUrl}/>
                 </div>

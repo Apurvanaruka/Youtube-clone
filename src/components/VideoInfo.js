@@ -3,7 +3,6 @@ import { NewLine,convertMillionToK } from "../utils/helper";
 import { useEffect, useState } from "react";
 
 const VideoInfo = ({info, channelInfo}) => {
-  console.log(channelInfo); 
     return (
         <div className="p-1">
             <h1 className="text-xl font-medium">{info?.snippet?.title}</h1>
