@@ -8,7 +8,7 @@ const VideoInfo = ({info, channelInfo}) => {
             <h1 className="text-xl font-medium">{info?.snippet?.title}</h1>
             <div className="flex p-2 items-center">
                 <Link to='/' className="flex space-x-2">
-                    <img className="w-10 rounded-full" alt="logo" src={channelInfo?.snippet?.thumbnails?.default?.url}></img>
+                    <img className="w-10 rounded-full" alt="" src={channelInfo?.snippet?.thumbnails?.default?.url}></img>
                     <pre>
                         <h1 className="font-bold">{info?.snippet?.channelTitle}</h1>
                         <p className="text-xs text-slate-900">{convertMillionToK(channelInfo?.statistics?.subscriberCount)}</p>

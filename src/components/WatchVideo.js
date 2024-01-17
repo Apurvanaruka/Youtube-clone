@@ -8,45 +8,20 @@ import LiveChat from "./LiveChat";
 import VideoInfo from "./VideoInfo";
 import { YOUTUBE_CHANNEL_INFO_API } from "../constant";
 import useChannel from "../utils/useChannel";
+import useWatchVideo from "../utils/useWatchVideo";
 
 
 
 const WatchVideo = () => {
     const [searchParam] = useSearchParams();
-    const [commentList, setCommentList] = useState();
-    const [videoInfo, setVideoInfo] = useState();
-    
-    const channelInfo = useChannel(videoInfo?.snippet?.channelId)
-
+      
     const videoId = searchParam.get('v')
     const src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
     const dispatch = useDispatch();
-
     dispatch(closeMenu());
-    useEffect(() => {
-        getVideoInfo();
-        getComments();
-
-    }, [])
- 
-    async function getComments() {
-        // const response = await fetch(YOUTUBE_COMMENT_API + videoId)
-        // const json = await response.json()
-        // console.log(json);
-        // setCommentList(json.items)
-
-        setCommentList(COMMENT_JSON);
-    }
-
-    async function getVideoInfo() {
-        const response = await fetch(YOUTUBE_VIDEO_INFO_API+videoId);
-        const data = await response.json();
-        setVideoInfo(data.items[0]);     
-        console.log('GetVideoInfo')
-        // setVideoInfo(YOUTUBE_VIDEO_INFO.items[0]);
-    }
-
-
+    
+    const [ videoInfo, commentList, channelInfo ] = useWatchVideo(videoId);
+  
     return (
         <div className="flex">
             <div className="overflow-y-scroll h-screen no-scrollbar ">
