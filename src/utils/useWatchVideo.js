@@ -4,13 +4,11 @@ import { YOUTUBE_VIDEO_INFO, COMMENT_JSON  } from '../constant';
 
 const useWatchVideo = (videoId)=>{
     const [videoInfo, setVideoInfo] = useState();
-    const [commentList, setCommentList] = useState();
     const [channelInfo, setChannelInfo] = useState();
 
 
     useEffect(() => {
         getVideoInfo();
-        getComments();
     }, [])
 
     useEffect(()=>{
@@ -24,13 +22,6 @@ const useWatchVideo = (videoId)=>{
         setVideoInfo(YOUTUBE_VIDEO_INFO.items[0]);
     }
 
-    async function getComments() {
-        // const response = await fetch(YOUTUBE_COMMENT_API + videoId)
-        // const json = await response.json()
-        // setCommentList(json.items)
-
-        setCommentList(COMMENT_JSON);
-    }
     async function getChannelInfo() {
         const response = await fetch(YOUTUBE_CHANNEL_INFO_API + videoInfo?.snippet?.channelId);
         const json = await response.json();
@@ -38,7 +29,7 @@ const useWatchVideo = (videoId)=>{
     }
 
 
-    return [videoInfo, commentList ,channelInfo ];
+    return [videoInfo ,channelInfo ];
 
 }
 

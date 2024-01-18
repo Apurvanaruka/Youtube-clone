@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { addCache } from "../utils/cacheSlice";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useEffect, useState } from "react";
 import {YOUTUBE_SUGGESTION_API} from "../constant"
 
@@ -11,6 +11,8 @@ const Header = () => {
     const [searchSuggestion, setSearchSuggestion] = useState([]);
     const [showSuggestion , setShowSuggestion ] = useState(false);
     const suggestionData = useSelector((state)=>state.suggestionCache.suggestions);
+    
+
 
     useEffect(() => {
             if (Object.keys(suggestionData).includes(searchQuery)){
