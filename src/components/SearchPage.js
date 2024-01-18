@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { JSON, YOUTUBE_SEARCH_API } from "../constant";
 import { convertMillionToK } from "../utils/helper";
 import { Link, useSearchParams } from "react-router-dom";
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const SearchCard = ({ item }) => {
+    console.log(item)
     return (
         <div className="flex h-fit p-1 m-2">
             <div className="rounded-xl mx-1 ">
@@ -27,24 +28,47 @@ const SearchCard = ({ item }) => {
 
 const SearchPage = () => {
 
-    const [ searchParam ] = useSearchParams();
-    const [searchQuery]= searchParam.get('q');
-    const [searchResult, setSearchResult] = useState();
+    const [searchParam] = useSearchParams();
+    const [searchQuery] = searchParam.get('q');
+    const [ searchResult, setSearchResult ] = useState([]);
+    const [ nextPageToken, setNextPageToken ] = useState("");
+    const [ hasMore, setHasMore ] = useState(true);
+    
 
-    useEffect(()=>{
+    useEffect(() => {
         getSearchResult();
-    },[searchQuery]);
+    }, [searchQuery]);
 
-    const getSearchResult = async ()=>{
-        const response = await fetch(YOUTUBE_SEARCH_API+searchQuery);
+    const getSearchResult = async () => {
+        const response = await fetch(YOUTUBE_SEARCH_API + searchQuery);
         const data = await response.json();
-        setSearchResult(data);
+        setSearchResult(data?.items);
+        setNextPageToken(data?.nextPageToken);
+    }
+    const getMoreSearchResult = async () => {
+        console.log('getMoreSearchResualt');
+        if(nextPageToken != undefined){
+            const response = await fetch(YOUTUBE_SEARCH_API + searchQuery + "&pageToken=" + nextPageToken);
+            const data = await response.json();
+            setSearchResult(searchResult.concat(data?.items));
+            setNextPageToken(data?.nextPageToken);
+        }else{
+            setHasMore(false);
+        }
     }
 
 
     return (
-        <div className="h-screen overflow-y-scroll w-full">
-            {searchResult?.items?.map((item) => <Link to={'/watch?v='+item?.id?.videoId} key={item?.id?.videoId}><SearchCard  item={item} /></Link>)}
+        <div className="h-[680px] overflow-y-scroll w-full" id="searchpage">
+            <InfiniteScroll
+                dataLength={searchResult?.length}
+                next={getMoreSearchResult}
+                hasMore={hasMore} // Replace with a condition based on your data source
+                loader={<p className="flex justify-center">Loading...</p>}
+                endMessage={<p className="flex justify-center">No More Videos</p>}
+                scrollableTarget="searchpage">
+                {searchResult?.map((item) => <Link to={'/watch?v=' + item?.id?.videoId} key={item?.id?.videoId}><SearchCard item={item} /></Link>)}
+            </InfiniteScroll>
         </div>
     );
 }
