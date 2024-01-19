@@ -1,7 +1,7 @@
 export const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 
-export const YOUTUBE_DATA_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&maxResults=5&regionCode=IN&key=" + YOUTUBE_API_KEY;
+export const YOUTUBE_DATA_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&maxResults=24&regionCode=IN&key=" + YOUTUBE_API_KEY;
 export const YOUTUBE_SUGGESTION_API = 'https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q='
 export const YOUTUBE_COMMENT_API = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=10&textFormat=plainText&key=${YOUTUBE_API_KEY}&videoId=`;
 export const YOUTUBE_VIDEO_INFO_API = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&key=" + YOUTUBE_API_KEY + "&id=";
