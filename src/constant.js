@@ -1,4 +1,4 @@
-export const YOUTUBE_API_KEY = 'AIzaSyBrQul6AnTkxWaE_1YJI42M7lzQMlpBjk4';
+export const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 
 export const YOUTUBE_DATA_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&maxResults=5&regionCode=IN&key=" + YOUTUBE_API_KEY;
