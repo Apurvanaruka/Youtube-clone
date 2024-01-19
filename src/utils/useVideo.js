@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { YOUTUBE_DATA_API,YOUTUBE_CHANNEL_INFO_API, JSON } from "../constant";
+import { YOUTUBE_DATA_API, JSON } from "../constant";
 
 
 const useVideo = ()=>{
     const [videos, setVideos] = useState([]);
+    const [ nextPageToken, setNextPageToken ] = useState("");
+    const [ hasMore, setHasMore ] = useState(true);
 
     useEffect(() => {
         getVideo();
@@ -13,10 +15,23 @@ const useVideo = ()=>{
         // const response = await fetch(YOUTUBE_DATA_API);
         // const json = await response.json();
         const json = JSON;
-        setVideos(json.items);
+        setVideos(json?.items);
+        setNextPageToken(json?.nextPageToken);
     }
 
-    return videos;
+    const getMoreVideos = async ()=>{
+        if(nextPageToken !== undefined){
+            // const response = await fetch(YOUTUBE_DATA_API+"&pageToken="+nextPageToken);
+            // const json = await response.json();
+            const json = JSON;
+            setVideos(videos.concat(json?.items));
+            setNextPageToken(json?.nextPageToken);
+        }else{
+            setHasMore(false);
+        }
+    }
+
+    return [ videos, getMoreVideos, hasMore ];
 
 }
 export default useVideo;
