@@ -46,7 +46,7 @@ const SearchPage = () => {
     }
     const getMoreSearchResult = async () => {
         console.log('getMoreSearchResualt');
-        if(nextPageToken != undefined){
+        if(nextPageToken !== undefined){
             const response = await fetch(YOUTUBE_SEARCH_API + searchQuery + "&pageToken=" + nextPageToken);
             const data = await response.json();
             setSearchResult(searchResult.concat(data?.items));

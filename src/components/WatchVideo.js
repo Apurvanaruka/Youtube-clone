@@ -17,6 +17,7 @@ const WatchVideo = () => {
     const [searchParam] = useSearchParams();
     const [nextPageToken, setNextPageToken ] = useState();
     const [hasMore, setHasMore ] = useState(true);
+    const [ isLiveChatVisible, setIsLiveChatVisible ] = useState(true);
 
     const videoId = searchParam.get('v')
     const src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
@@ -67,7 +68,7 @@ const WatchVideo = () => {
             
             </div>
             <div className=" w-full flex justify-center">
-                <LiveChat />
+               { isLiveChatVisible && <LiveChat />}
             </div>
         </div>
     )
