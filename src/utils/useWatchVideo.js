@@ -5,7 +5,8 @@ import { YOUTUBE_VIDEO_INFO, COMMENT_JSON  } from '../constant';
 const useWatchVideo = (videoId)=>{
     const [videoInfo, setVideoInfo] = useState();
     const [channelInfo, setChannelInfo] = useState();
-
+    const [ isLiveChatVisible, setIsLiveChatVisible ] = useState(false);
+    
 
     useEffect(() => {
         getVideoInfo();
@@ -18,8 +19,11 @@ const useWatchVideo = (videoId)=>{
     async function getVideoInfo() {
         // const response = await fetch(YOUTUBE_VIDEO_INFO_API+ videoId);
         // const data = await response.json();
-        // setVideoInfo(data.items[0]);     
-        setVideoInfo(YOUTUBE_VIDEO_INFO.items[0]);
+        const data = YOUTUBE_VIDEO_INFO;
+        setVideoInfo(data.items[0]);    
+        if(data?.items[0].snippet?.liveBroadcastContent === "live"){
+            setIsLiveChatVisible(true);
+        }
     }
 
     async function getChannelInfo() {
@@ -29,7 +33,7 @@ const useWatchVideo = (videoId)=>{
     }
 
 
-    return [videoInfo ,channelInfo ];
+    return [videoInfo ,channelInfo, isLiveChatVisible ];
 
 }
 

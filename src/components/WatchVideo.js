@@ -22,7 +22,7 @@ const WatchVideo = () => {
     const src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
     const dispatch = useDispatch();
     dispatch(closeMenu());
-    const [videoInfo, channelInfo] = useWatchVideo(videoId);
+    const [videoInfo, channelInfo , isLiveChatVisible ] = useWatchVideo(videoId);
 
     useEffect(() => {
         getComments();
@@ -54,7 +54,7 @@ const WatchVideo = () => {
                 <iframe className="m-1 rounded-2xl p-1" width="880rem" height="540rem" src={src} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                 <VideoInfo info={videoInfo} channelInfo={channelInfo} />
                     <InfiniteScroll
-                        dataLength={commentList.length}
+                        dataLength={commentList?.length}
                         next={getMoreData}
                         hasMore={hasMore} // Replace with a condition based on your data source
                         loader={<p className="flex justify-center">Loading...</p>}
@@ -67,7 +67,7 @@ const WatchVideo = () => {
             
             </div>
             <div className=" w-full flex justify-center">
-                <LiveChat />
+               { isLiveChatVisible && <LiveChat />}
             </div>
         </div>
     )
