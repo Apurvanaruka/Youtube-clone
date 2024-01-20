@@ -41,3 +41,34 @@ export  function convertMillionToK(number) {
       return number;
     }
   }
+
+export function timeAgo(timestamp) {
+  const currentDate = new Date();
+  const previousDate = new Date(timestamp);
+  const seconds = Math.floor((currentDate - previousDate) / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(days / 365);
+
+  if (years > 0) {
+    return years === 1 ? '1 year ago' : `${years} years ago`;
+  } else if (months > 0) {
+    return months === 1 ? '1 month ago' : `${months} months ago`;
+  }else if(days > 7) {
+    return days === 7 ? '1 week ago' : `${days%7} weeks ago`;
+  }else if (days > 0) {
+    return days === 1 ? '1 day ago' : `${days} days ago`;
+  } else if (hours > 0) {
+    return hours === 1 ? '1 hour ago' : `${hours} hours ago`;
+  } else if (minutes > 0) {
+    return minutes === 1 ? '1 minute ago' : `${minutes} minutes ago`;
+  } else {
+    return 'Just now';
+  }
+}
+
+// const timestamp = '2023-12-29T05:38:35Z';
+// const result = timeAgo(timestamp);
+// console.log(result);

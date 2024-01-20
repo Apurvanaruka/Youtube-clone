@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { convertMillionToK } from "../utils/helper";
+import { convertMillionToK, timeAgo } from "../utils/helper";
 import useChannel from "../utils/useChannel";
 
 
@@ -21,7 +21,7 @@ const VideoCard = ({ info }) => {
                         <h1 className="ml-1">{info?.snippet?.title}</h1>
                     </div>
                     <h3>{info?.snippet?.channelTitle}</h3>
-                    <h3>{convertMillionToK(info?.statistics?.viewCount) + " views"} {info?.snippet?.publishedAt}</h3>
+                    <h3>{convertMillionToK(info?.statistics?.viewCount) + " views"} {timeAgo(info?.snippet?.publishedAt) }</h3>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@ const VideoCard = ({ info }) => {
                         <h1 className="ml-1">{info?.snippet?.title}</h1>
                     </div>
                     <h3>{info?.snippet?.channelTitle}</h3>
-                    <h3>{convertMillionToK(info?.statistics?.viewCount) + " views"} {info?.snippet?.publishedAt}</h3>
+                    <h3>{convertMillionToK(info?.statistics?.viewCount) + " views"} {timeAgo(info?.snippet?.publishedAt)}</h3>
                 </div>
             </div>
         </div>
