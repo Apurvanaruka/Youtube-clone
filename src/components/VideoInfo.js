@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
-import { NewLine,convertMillionToK } from "../utils/helper";
+import { NewLine, convertMillionToK } from "../utils/helper";
 import { useEffect, useState } from "react";
 
-const VideoInfo = ({info, channelInfo}) => {
+const VideoInfo = ({ info, channelInfo }) => {
+    const [ seeMore, setSeeMore ] = useState(false);
+    const handleOnClick = ()=>{
+        setSeeMore(!seeMore);
+    }
     return (
         <div className="p-1">
             <h1 className="text-xl font-medium">{info?.snippet?.title}</h1>
@@ -23,10 +27,9 @@ const VideoInfo = ({info, channelInfo}) => {
             </div>
             <div className="bg-gray-200 rounded-xl p-3">
                 <p>{convertMillionToK(info?.statistics?.viewCount)} views   #tag1 #tag2 #tag3</p>
-                <div>
-                <NewLine text={info?.snippet?.description}/> 
-              </div>
-                
+                    <NewLine text={info?.snippet?.description} seeMore={seeMore} />
+                    {(seeMore ? (<button className="font-bold" onClick={handleOnClick}>See less</button>):(<button className="font-bold" onClick={handleOnClick}>See more</button>))}
+
             </div>
         </div>
     )
