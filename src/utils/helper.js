@@ -31,7 +31,7 @@ export const NewLine = ({ text, seeMore }) => {
   if(seeMore){
     return linesList?.map((line, index) => <p key={index}>{line}</p>);
   }else{
-    return linesList?.slice(0,5)?.map((line, index) => <p key={index}>{line}</p>);
+    return linesList?.slice(0,3)?.map((line, index) => <p key={index}>{line}</p>);
   }
 }
 

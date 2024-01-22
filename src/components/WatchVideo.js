@@ -33,7 +33,7 @@ const WatchVideo = () => {
         const json = await response.json()
         setNextPageToken(json?.nextPageToken);
         setCommentList(json.items)
-        // setCommentList(COMMENT_JSON);
+        // setCommentList(COMMENT_JSON?.items);
        
     }
     async function getMoreData() {
@@ -42,7 +42,7 @@ const WatchVideo = () => {
             const json = await response.json()
             setNextPageToken(json?.nextPageToken);
             setCommentList(commentList.concat(json?.items))
-            // setCommentList(COMMENT_JSON);
+            // setCommentList(COMMENT_JSON?.items);
         }else{
             setHasMore(false)
         }

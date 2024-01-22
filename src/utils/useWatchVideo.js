@@ -17,9 +17,9 @@ const useWatchVideo = (videoId)=>{
     },[videoInfo])
 
     async function getVideoInfo() {
-        // const response = await fetch(YOUTUBE_VIDEO_INFO_API+ videoId);
-        // const data = await response.json();
-        const data = YOUTUBE_VIDEO_INFO;
+        const response = await fetch(YOUTUBE_VIDEO_INFO_API+ videoId);
+        const data = await response.json();
+        // const data = YOUTUBE_VIDEO_INFO;
         setVideoInfo(data.items[0]);    
         if(data?.items[0].snippet?.liveBroadcastContent === "live"){
             setIsLiveChatVisible(true);
