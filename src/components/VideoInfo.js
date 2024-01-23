@@ -19,8 +19,8 @@ const VideoInfo = ({ info, channelInfo }) => {
                     </pre>
                 </Link>
                 <button className="text-white bg-black px-3 py-1 rounded-full ml-2">Subscribe</button>
-                <button className="px-3 py-1 m-1 rounded-full bg-gray-200 ml-auto font-medium" >Likes {convertMillionToK(info?.statistics?.likeCount)}</button>
-                <button className="px-3 py-1 m-1 rounded-full bg-gray-200">Dislike</button>
+                <button className="px-3 py-1 m-1 rounded-full bg-gray-200 ml-auto font-medium" >👍 {convertMillionToK(info?.statistics?.likeCount)}</button>
+                <button className="px-3 py-1 m-1 rounded-full bg-gray-200">👎</button>
                 <button className="px-3 py-1 m-1 rounded-full bg-gray-200">share</button>
                 <button className="px-3 py-1 m-1 rounded-full bg-gray-200">Downloads</button>
                 <button className="px-3 py-1 m-1 rounded-full bg-gray-200">...</button>

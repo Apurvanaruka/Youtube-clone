@@ -4218,7 +4218,7 @@ export const COMMENT_JSON = {
           }
         },
         "canReply": true,
-        "totalReplyCount": 0,
+        "totalReplyCount": 1,
         "isPublic": true
       },  "replies": {
         "comments": [
