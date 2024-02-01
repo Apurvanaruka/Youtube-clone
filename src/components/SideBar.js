@@ -43,7 +43,7 @@ const SideBar = () => {
 
 
                 <li><Link to={'/'}>Home</Link></li>
-                <li>Shorts</li>
+                <li><Link to={"/shorts"}>Shorts</Link></li>
                 <li>Subscriptions</li>
             </ul>
             <hr className="border-black my-4" />

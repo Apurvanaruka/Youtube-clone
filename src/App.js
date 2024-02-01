@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import WatchVideo from './components/WatchVideo';
 import VideoContainer from './components/VideoContainer';
 import SearchPage from './components/SearchPage';
+import Shorts from './components/Shorts';
 
 
 const appRouter = createBrowserRouter([{
@@ -20,6 +21,9 @@ const appRouter = createBrowserRouter([{
     {
       path: 'watch',
       element: <WatchVideo />
+    },{
+      path:'shorts',
+      elelment:<Shorts />
     },
     {
       path: 'searchpage',
