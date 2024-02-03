@@ -21,14 +21,16 @@ const appRouter = createBrowserRouter([{
     {
       path: 'watch',
       element: <WatchVideo />
-    },{
-      path:'shorts',
-      elelment:<Shorts />
     },
     {
       path: 'searchpage',
       element: <SearchPage />
-    }]
+    },
+    {
+      path: 'shorts',
+      element : <Shorts />
+    }
+  ]
 }])
 
 
