@@ -1,13 +1,12 @@
 const Btn = ({btn, text})=> (
     <div>
-        <button className="p-3 m-1 text-xl bg-gray-200 rounded-full">{btn}</button>
         <p>{text}</p>
     </div>
 )
 
 
 const Shorts = () => {
-    const btnList = ['👍🏿','👎🏿','💬','🚀','🚦']
+    const btnList = ['','👎','💬','🚀','🚦']
     return (
         <div className="flex justify-center w-full h-fit bg-green-400">
                 <iframe  className="rounded-xl my-4 bg-blue-300"
@@ -21,7 +20,10 @@ const Shorts = () => {
                 </iframe>
                 <div className="flex flex-col justify-end">
                     {/* {btnList.map((btn, index) => <Btn key={index} btn={btn} text="text" />)} */}
-                
+	    <div>
+	    
+        <button className="p-3 m-1 text-xl bg-gray-200 rounded-full">👍</button>
+	    </div>
                 </div>
        </div>
 
