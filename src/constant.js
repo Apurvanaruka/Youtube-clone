@@ -1,5 +1,5 @@
 export const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-
+export const OAUTH_CLIENT_ID = process.env.REACT_APP_OAUTH2_API_KEY;
 
 export const YOUTUBE_DATA_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&maxResults=24&regionCode=IN&key=" + YOUTUBE_API_KEY;
 export const YOUTUBE_SUGGESTION_API = 'https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q='

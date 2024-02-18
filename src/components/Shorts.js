@@ -7,8 +7,8 @@ const Btn = ({btn, text})=> (
 
 const Shorts = () => {
     const btnList = ['','👎','💬','🚀','🚦']
-    return (
-        <div className="flex justify-center w-full h-fit bg-green-400">
+	return (
+        <div className="flex justify-center w-full h-fit">
                 <iframe  className="rounded-xl my-4 bg-blue-300"
                     width="347"
                     height="617"

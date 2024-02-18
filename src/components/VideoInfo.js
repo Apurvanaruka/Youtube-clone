@@ -1,60 +1,123 @@
 import { Link } from "react-router-dom";
 import { NewLine, convertMillionToK } from "../utils/helper";
 import { useState } from "react";
+import { YOUTUBE_API_KEY } from "../constant";
+import { useSelector } from "react-redux";
+import { useEffect } from "react"; 
 
 const VideoInfo = ({ info, channelInfo }) => {
-    const [seeMore, setSeeMore] = useState(false);
-    const handleOnClick = () => {
-        setSeeMore(!seeMore);
-    }
+  const [seeMore, setSeeMore] = useState(false);
+  const [accessToken, setaccessToken] = useState(''); // Replace with your access token
 
-    const handleOnClickLike = () => {
-
-        const apiUrl = 'https://youtube.googleapis.com/youtube/v3/videos/rate?id=o7O-BuZwkW0&rating=like&key=';
-        const accessToken = '[YOUR_ACCESS_TOKEN]';
-
-        const headers = {
-            'Authorization': `Bearer ${accessToken}`,
-            'Accept': 'application/json',
-        };
-
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: headers
-        })
-            .then(response => response.json())
-            .then(data => console.log('Success:', data))
-            .catch(error => console.error('Error:', error));
+  const handleOnClick = () => {
+    setSeeMore(!seeMore);
+  }
 
 
-    }
+  useEffect(() => {
+    // Extract access token from URI fragment
+    const Token = extractAccessToken(window.location.hash);
+    setaccessToken(Token);
+  }, []);
 
-    return (
-        <div className="p-1">
-            <h1 className="text-xl font-medium">{info?.snippet?.title}</h1>
-            <div className="flex p-2 items-center">
-                <Link to='/' className="flex space-x-2">
-                    <img className="w-10 rounded-full" alt="" src={channelInfo?.snippet?.thumbnails?.default?.url}></img>
-                    <pre>
-                        <h1 className="font-bold">{info?.snippet?.channelTitle}</h1>
-                        <p className="text-xs text-slate-900">{convertMillionToK(channelInfo?.statistics?.subscriberCount)}</p>
-                    </pre>
-                </Link>
-                <button className="text-white bg-black px-3 py-1 rounded-full ml-2">Subscribe</button>
-                <button className="px-3 py-1 m-1 rounded-full bg-gray-200 ml-auto font-medium" onClick={handleOnClickLike} >👍 {convertMillionToK(info?.statistics?.likeCount)}</button>
-                <button className="px-3 py-1 m-1 rounded-full bg-gray-200">👎</button>
-                <button className="px-3 py-1 m-1 rounded-full bg-gray-200">share</button>
-                <button className="px-3 py-1 m-1 rounded-full bg-gray-200">Downloads</button>
-                <button className="px-3 py-1 m-1 rounded-full bg-gray-200">...</button>
-            </div>
-            <div className="bg-gray-200 rounded-xl p-3">
-                <p>{convertMillionToK(info?.statistics?.viewCount)} views {info?.snippet?.tags?.slice(0, 3)?.map((tag) => "#" + tag + " ")}</p>
-                <NewLine text={info?.snippet?.description} seeMore={seeMore} />
-                {(seeMore ? (<button className="font-bold" onClick={handleOnClick}>See less</button>) : (<button className="font-bold" onClick={handleOnClick}>See more</button>))}
+  // Function to extract access token from URI fragment
+  const extractAccessToken = (hash) => {
+    const match = hash.match(/access_token=([^&]*)/);
+    return match ? match[1] : null;
+  };
 
-            </div>
-        </div>
-    )
+  // const [apiKey] = useState(YOUTUBE_API_KEY); // Replace with your API key
+  // const [rating] = useState('like'); // Specify the rating (like/dislike)
+
+
+  const handleRateVideo = () => {
+    console.log(accessToken)
+    fetch(`https://youtube.googleapis.com/youtube/v3/videos/rate?id=${info?.id}&rating=like`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Accept': 'application/json'
+      },
+    })
+      .then(response => {
+        console.log(response);
+        if (!response.ok) {
+          throw new Error('Failed to rate video');
+        }
+        // Check if response has JSON data
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          return response;
+        } else {
+          return null; // No JSON data
+        }
+      })
+      .then(data => {
+        if (data) {
+          console.log('Video rated successfully:', data);
+        } else {
+          console.log('Video rated successfully.'); // No JSON data
+        }
+      })
+      .catch(error => {
+        console.error('Error rating video:', error);
+      });
+  };
+
+
+  // const handleRateVideo = async () => {
+  //     console.log('videos is liked')
+  //     const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
+  //     const ACCESS_TOKEN = 'ya29.a0AfB_byBwbuVRlEqr4Tgq5IDy4NiGkXjgoh7Rt8_NOmRBXn3JLK1c2uFInwqu1CZrlE-UN5EdKRAYoq69or2Fh6yxv6CrgbFRf0KLqQfJrVQF-LpiMhfemWy1tVJF3XMHwEhw7oYg_7l-Mh6CIycnPSIeOxsQdL5ifAaCgYKAdYSARESFQHGX2Mi-SLCcDN3vX-MpcDzqPhguw0169';
+  //     const videoId = '5zNjfGSt_Aw'; // Replace with the ID of the video you want to rate
+
+
+  //       const response = await fetch(`https://youtube.googleapis.com/youtube/v3/videos/rate?key=${API_KEY}`, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Authorization': `Bearer ${ACCESS_TOKEN}`,
+  //           'Accept': 'application/json',
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify({
+  //           id: videoId,
+  //           rating: "like"
+  //         })
+  //       });
+
+  //       const responseData = await response.json();
+
+  //       console.log(responseData); // Handle success response
+
+  //   };
+
+
+  return (
+    <div className="p-1">
+      <h1 className="text-xl font-medium">{info?.snippet?.title}</h1>
+      <div className="flex p-2 items-center">
+        <Link to='/' className="flex space-x-2">
+          <img className="w-10 rounded-full" alt="" src={channelInfo?.snippet?.thumbnails?.default?.url}></img>
+          <pre>
+            <h1 className="font-bold">{info?.snippet?.channelTitle}</h1>
+            <p className="text-xs text-slate-900">{convertMillionToK(channelInfo?.statistics?.subscriberCount)}</p>
+          </pre>
+        </Link>
+        <button className="text-white bg-black px-3 py-1 rounded-full ml-2">Subscribe</button>
+        <button className="px-3 py-1 m-1 rounded-full bg-gray-200 ml-auto font-medium" onClick={handleRateVideo} >👍 {convertMillionToK(info?.statistics?.likeCount)}</button>
+        <button className="px-3 py-1 m-1 rounded-full bg-gray-200">👎</button>
+        <button className="px-3 py-1 m-1 rounded-full bg-gray-200">share</button>
+        <button className="px-3 py-1 m-1 rounded-full bg-gray-200">Downloads</button>
+        <button className="px-3 py-1 m-1 rounded-full bg-gray-200">...</button>
+      </div>
+      <div className="bg-gray-200 rounded-xl p-3">
+        <p>{convertMillionToK(info?.statistics?.viewCount)} views {info?.snippet?.tags?.slice(0, 3)?.map((tag) => "#" + tag + " ")}</p>
+        <NewLine text={info?.snippet?.description} seeMore={seeMore} />
+        {(seeMore ? (<button className="font-bold" onClick={handleOnClick}>See less</button>) : (<button className="font-bold" onClick={handleOnClick}>See more</button>))}
+
+      </div>
+    </div>
+  )
 }
 
 export default VideoInfo;
