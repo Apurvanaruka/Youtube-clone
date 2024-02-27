@@ -4,7 +4,7 @@ const appMenu = createSlice({
     name: 'toggle',
     initialState:
     {
-        showMenu: false
+        showMenu: true
     },
     reducers: {
         toggleMenu: (state) => {

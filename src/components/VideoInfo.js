@@ -7,31 +7,13 @@ import { useEffect } from "react";
 
 const VideoInfo = ({ info, channelInfo }) => {
   const [seeMore, setSeeMore] = useState(false);
-  const [accessToken, setaccessToken] = useState(''); // Replace with your access token
-
+  const accessToken = sessionStorage.getItem('accessToken')
+  
   const handleOnClick = () => {
     setSeeMore(!seeMore);
   }
 
-
-  useEffect(() => {
-    // Extract access token from URI fragment
-    const Token = extractAccessToken(window.location.hash);
-    setaccessToken(Token);
-  }, []);
-
-  // Function to extract access token from URI fragment
-  const extractAccessToken = (hash) => {
-    const match = hash.match(/access_token=([^&]*)/);
-    return match ? match[1] : null;
-  };
-
-  // const [apiKey] = useState(YOUTUBE_API_KEY); // Replace with your API key
-  // const [rating] = useState('like'); // Specify the rating (like/dislike)
-
-
   const handleRateVideo = () => {
-    console.log(accessToken)
     fetch(`https://youtube.googleapis.com/youtube/v3/videos/rate?id=${info?.id}&rating=like`, {
       method: 'POST',
       headers: {
@@ -63,33 +45,6 @@ const VideoInfo = ({ info, channelInfo }) => {
         console.error('Error rating video:', error);
       });
   };
-
-
-  // const handleRateVideo = async () => {
-  //     console.log('videos is liked')
-  //     const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-  //     const ACCESS_TOKEN = 'ya29.a0AfB_byBwbuVRlEqr4Tgq5IDy4NiGkXjgoh7Rt8_NOmRBXn3JLK1c2uFInwqu1CZrlE-UN5EdKRAYoq69or2Fh6yxv6CrgbFRf0KLqQfJrVQF-LpiMhfemWy1tVJF3XMHwEhw7oYg_7l-Mh6CIycnPSIeOxsQdL5ifAaCgYKAdYSARESFQHGX2Mi-SLCcDN3vX-MpcDzqPhguw0169';
-  //     const videoId = '5zNjfGSt_Aw'; // Replace with the ID of the video you want to rate
-
-
-  //       const response = await fetch(`https://youtube.googleapis.com/youtube/v3/videos/rate?key=${API_KEY}`, {
-  //         method: 'POST',
-  //         headers: {
-  //           'Authorization': `Bearer ${ACCESS_TOKEN}`,
-  //           'Accept': 'application/json',
-  //           'Content-Type': 'application/json'
-  //         },
-  //         body: JSON.stringify({
-  //           id: videoId,
-  //           rating: "like"
-  //         })
-  //       });
-
-  //       const responseData = await response.json();
-
-  //       console.log(responseData); // Handle success response
-
-  //   };
 
 
   return (
