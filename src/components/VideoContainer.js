@@ -12,10 +12,11 @@ const VideoContainer = () => {
     const [videos, getMoreVideos, hasMore] = useVideo(); // return video list
     const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true' // sessionStorage save string in this method
     
+    
     useEffect(() => {
 
         // Extract access token from URI fragment
-        if(sessionStorage.getItem('accessToken') == undefined){
+        if(!isAuthenticated){
             const accessToken = extractAccessToken(window.location.hash)
             sessionStorage.setItem('accessToken', accessToken);
             sessionStorage.setItem('isAuthenticated', !!accessToken);
@@ -34,7 +35,7 @@ const VideoContainer = () => {
             {/* <ButtonHeader /> */}
             <div className="h-[685px] overflow-scroll no-scrollbar" id='homepage'>
                 <InfiniteScroll className="flex flex-wrap justify-center"
-                    dataLength={videos.length}
+                    dataLength={videos?.length}
                     next={getMoreVideos}
                     hasMore={hasMore} 
                     loader={<div className="flex justify-center">Loading...</div>}
