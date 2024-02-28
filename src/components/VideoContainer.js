@@ -35,11 +35,11 @@ const VideoContainer = () => {
             {/* <ButtonHeader /> */}
             <div className="h-[685px] overflow-scroll no-scrollbar" id='homepage'>
                 <InfiniteScroll className="flex flex-wrap justify-center"
-                    dataLength={videos?.length}
+                    dataLength={videos?.length || 0}
                     next={getMoreVideos}
                     hasMore={hasMore} 
-                    loader={<div className="flex justify-center">Loading...</div>}
-                    endMessage={<div className="flex justify-center">No More videos</div>}
+                    loader={<div className="flex justify-center w-screen">Loading...</div>}
+                    endMessage={<div className="flex justify-center w-screen ">No More videos</div>}
                     scrollableTarget="homepage">
                     {videos?.map((video) => <Link to={"watch?v=" + video?.id} key={video?.id}><VideoCard info={video} /></Link>)}
                 </InfiniteScroll>

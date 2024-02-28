@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { YOUTUBE_DATA_API, JSON } from "../constant";
 
 
 const useVideo = () => {
     const [videos, setVideos] = useState([]);
     const [nextPageToken, setNextPageToken] = useState("");
     const [hasMore, setHasMore] = useState(true);
-    const accessToken = sessionStorage.getItem('accessToken')
-
+    const accessToken = sessionStorage.getItem('accessToken');
 
     useEffect(() => {
         getVideo();
-    }, []);
+    }, [ accessToken ]);
 
     async function getVideo() {
         const url = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20";
@@ -27,13 +25,14 @@ const useVideo = () => {
             .then((response) => response.json())
             .then((data) => {
                 // Process the response data here
-                console.log(data);
+                // console.log(data);
                 setVideos(data?.items)
                 setNextPageToken(data?.nextPageToken);
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
+
     }
 
     const getMoreVideos = async () => {
@@ -51,10 +50,8 @@ const useVideo = () => {
                 .then((response) => response.json())
                 .then((data) => {
                     // Process the response data here
-                    console.log(data);
                     setVideos(videos.concat(data?.items));
                     setNextPageToken(data?.nextPageToken);
-                    console.log(data?.nextPageToken)
                 })
                 .catch((error) => {
                     console.error("Error:", error);

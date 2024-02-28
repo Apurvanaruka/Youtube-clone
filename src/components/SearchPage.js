@@ -28,30 +28,68 @@ const SearchCard = ({ item }) => {
 const SearchPage = () => {
 
     const [searchParam] = useSearchParams();
-    const [searchQuery] = searchParam.get('q');
-    const [ searchResult, setSearchResult ] = useState([]);
-    const [ nextPageToken, setNextPageToken ] = useState("");
-    const [ hasMore, setHasMore ] = useState(true);
-    
+    const searchQuery = searchParam.get('q');
+    const [searchResult, setSearchResult] = useState([]);
+    const [nextPageToken, setNextPageToken] = useState("");
+    const [hasMore, setHasMore] = useState(true);
+    const accessToken = sessionStorage.getItem('accessToken');
 
     useEffect(() => {
         getSearchResult();
     }, [searchQuery]);
 
     const getSearchResult = async () => {
-        const response = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-        const data = await response.json();
-        setSearchResult(data?.items);
-        setNextPageToken(data?.nextPageToken);
+        // const response = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+        fetch('https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelType=any&maxResults=10&q=' + searchQuery, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`, // Replace with your token
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Process the retrieved data (search results)
+                console.log(data)
+                setSearchResult(data?.items);
+                setNextPageToken(data?.nextPageToken);
+
+            })
+            .catch(error => {
+                // Handle potential errors during the request or processing
+                console.error('Error:', error);
+            });
+
+
+        // const data = await response.json();
     }
     const getMoreSearchResult = async () => {
         console.log('getMoreSearchResualt');
-        if(nextPageToken !== undefined){
-            const response = await fetch(YOUTUBE_SEARCH_API + searchQuery + "&pageToken=" + nextPageToken);
-            const data = await response.json();
-            setSearchResult(searchResult.concat(data?.items));
-            setNextPageToken(data?.nextPageToken);
-        }else{
+        if (nextPageToken !== undefined) {
+            // const response = await fetch(YOUTUBE_SEARCH_API + searchQuery + "&pageToken=" + nextPageToken);
+            // const data = await response.json();
+            fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelType=any&maxResults=10&q=${searchQuery}&pageToken=${nextPageToken}`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`, // Replace with your token
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Process the retrieved data (search results)
+                    console.log(data)
+                    setSearchResult(searchResult.concat(data?.items));
+                    setNextPageToken(data?.nextPageToken);
+
+                })
+                .catch(error => {
+                    // Handle potential errors during the request or processing
+                    console.error('Error:', error);
+                });
+
+
+
+
+        } else {
             setHasMore(false);
         }
     }
