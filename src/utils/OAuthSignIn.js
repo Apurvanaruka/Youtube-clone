@@ -5,6 +5,7 @@ function OAuthSignIn() {
   const oauthSignIn = () => {
     // Google's OAuth 2.0 endpoint for requesting an access token
     var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+    console.log(OAUTH_CLIENT_ID)
     // Parameters to pass to OAuth 2.0 endpoint.
     var params = {
       'client_id': OAUTH_CLIENT_ID,

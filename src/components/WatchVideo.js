@@ -23,26 +23,41 @@ const WatchVideo = () => {
     const dispatch = useDispatch();
     dispatch(closeMenu());
     const [videoInfo, channelInfo , isLiveChatVisible ] = useWatchVideo(videoId);
+    const accessToken = sessionStorage.getItem('accessToken');
+    const options = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            Accept: "application/json",
+        },
+        compress: true
+    };
+
 
     useEffect(() => {
         getComments();
     }, [])
 
     async function getComments() {
-        const response = await fetch(YOUTUBE_COMMENT_API + videoId)
-        const json = await response.json()
-        setNextPageToken(json?.nextPageToken);
-        setCommentList(json.items)
-        // setCommentList(COMMENT_JSON?.items);
+        fetch(YOUTUBE_COMMENT_API + videoId, options)
+        .then((response)=>response.json())
+        .then((data)=>{
+            setNextPageToken(data?.nextPageToken);
+            setCommentList(data?.items)
+        })
+        .catch((error)=>console.error("Error:",error))
        
     }
     async function getMoreData() {
         if(nextPageToken != undefined){
-            const response = await fetch(YOUTUBE_COMMENT_API + videoId + "&pageToken=" + nextPageToken);
-            const json = await response.json()
-            setNextPageToken(json?.nextPageToken);
-            setCommentList(commentList.concat(json?.items))
-            // setCommentList(COMMENT_JSON?.items);
+            fetch(YOUTUBE_COMMENT_API + videoId + "&pageToken=" + nextPageToken, options)
+            .then((response)=>response.json())
+            .then((data)=>{
+                setNextPageToken(data?.nextPageToken);
+                setCommentList(commentList.concat(data?.items))
+
+            })
+            .catch((error)=>console.error("Error:",error))
+         
         }else{
             setHasMore(false)
         }

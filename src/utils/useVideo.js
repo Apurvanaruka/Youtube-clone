@@ -1,31 +1,28 @@
 import { useEffect, useState } from "react";
-
+import { YOUTUBE_DATA_API } from "../constant";
 
 const useVideo = () => {
     const [videos, setVideos] = useState([]);
     const [nextPageToken, setNextPageToken] = useState("");
     const [hasMore, setHasMore] = useState(true);
     const accessToken = sessionStorage.getItem('accessToken');
+    const options = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            Accept: "application/json",
+        },
+        compress: true, // Enable compression similar to the curl option
+    };
 
     useEffect(() => {
         getVideo();
     }, [ accessToken ]);
 
     async function getVideo() {
-        const url = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20";
-        const options = {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                Accept: "application/json",
-            },
-            compress: true, // Enable compression similar to the curl option
-        };
 
-        fetch(url, options)
+        fetch( YOUTUBE_DATA_API , options)
             .then((response) => response.json())
             .then((data) => {
-                // Process the response data here
-                // console.log(data);
                 setVideos(data?.items)
                 setNextPageToken(data?.nextPageToken);
             })
@@ -37,16 +34,7 @@ const useVideo = () => {
 
     const getMoreVideos = async () => {
         if (nextPageToken !== undefined) {
-            const url = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&pageToken="+nextPageToken;
-            const options = {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    Accept: "application/json",
-                },
-                compress: true, // Enable compression similar to the curl option
-            };
-    
-            fetch(url, options)
+            fetch( YOUTUBE_DATA_API + "&pageToken="+nextPageToken , options)
                 .then((response) => response.json())
                 .then((data) => {
                     // Process the response data here
