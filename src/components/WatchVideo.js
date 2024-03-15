@@ -10,6 +10,7 @@ import { YOUTUBE_CHANNEL_INFO_API } from "../constant";
 import useChannel from "../utils/useChannel";
 import useWatchVideo from "../utils/useWatchVideo";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import RecommendationVideo from "./RecommendationVideo";
 
 
 const WatchVideo = () => {
@@ -65,7 +66,7 @@ const WatchVideo = () => {
 
     return (
         <div className="flex h-[687px] overflow-auto " id="watchpage">
-            <div className="">
+            <div className="w-11/12">
                 <iframe className="m-1 rounded-2xl p-1" width="880rem" height="540rem" src={src} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                 <VideoInfo info={videoInfo} channelInfo={channelInfo} />
                     <InfiniteScroll
@@ -81,8 +82,9 @@ const WatchVideo = () => {
                     </InfiniteScroll>
             
             </div>
-            <div className=" w-full flex justify-center">
+            <div className="pt-2 w-full flex flex-col justify-center">
                { isLiveChatVisible && <LiveChat />}
+               { <RecommendationVideo info={videoInfo} /> }
             </div>
         </div>
     )
