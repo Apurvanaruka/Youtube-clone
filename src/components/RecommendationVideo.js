@@ -3,17 +3,50 @@ import { JSON, YOUTUBE_SEARCH_API } from "../constant";
 import { convertMillionToK, timeAgo } from "../utils/helper";
 import { Link, useSearchParams } from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { convert_time } from "../utils/helper";
+import { YOUTUBE_VIDEO_INFO_API } from "../constant";
 
 const VideoCard = ({ item }) => {
+
+    const [ videoInfo, setVideoInfo ] = useState();
+    const accessToken = sessionStorage.getItem('accessToken');
+
+    const options = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            Accept: "application/json",
+        },
+        compress: true
+    };
+
+
+
+    useEffect(() => {
+        getVideoInfo()
+    }, [item?.id?.videoId])
+
+    async function getVideoInfo() {
+        fetch(YOUTUBE_VIDEO_INFO_API + item?.id?.videoId, options)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                setVideoInfo(data?.items[0])
+            })
+            .catch((error) => console.error("Error:", error))
+    }
+
+
     return (
         <div className="flex h-fit p-1 m-2">
-            <div className="rounded-xl mx-1 ">
-                <img className="rounded-xl  object-cover  min-w-40 h-24" alt="" src={item?.snippet?.thumbnails.medium.url}></img>
+            <div className="rounded-xl mx-1 relative ">
+                <img className="rounded-xl  object-cover  max-w-40 h-24" alt="" src={item?.snippet?.thumbnails.medium.url}></img>
+                <p className="absolute bottom-1 right-1  text-white bg-black px-1 rounded-md text-sm">{convert_time(videoInfo?.contentDetails?.duration)}</p>
+
             </div>
             <div className="">
                 <h1 className="font-bold">{item?.snippet?.title}</h1>
-                <h1 className="ml-2 text-sm font-extralight">{item?.snippet?.channelTitle}</h1>
-                <p className="text-sm font-extralight">{convertMillionToK(item?.statistics?.viewCount)} views {timeAgo(item?.snippet?.publishedAt)}</p>         
+                <h1 className="ml-2 text-sm font-extralight">{videoInfo?.snippet?.channelTitle}</h1>
+                <p className="text-sm font-extralight">{convertMillionToK(videoInfo?.statistics?.viewCount)} views {timeAgo(item?.snippet?.publishedAt)}</p>         
             </div>
         </div>
     )
@@ -33,6 +66,9 @@ const RecommendationVideo = ( { info } ) => {
         getSearchResult();
     }, [searchQuery]);
 
+
+
+   
     const getSearchResult = async () => {
         // const response = await fetch(YOUTUBE_SEARCH_API + searchQuery);
         fetch(YOUTUBE_SEARCH_API + searchQuery, {

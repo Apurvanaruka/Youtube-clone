@@ -1,16 +1,17 @@
 import { useSelector } from "react-redux";
-import { convertMillionToK, timeAgo } from "../utils/helper";
+import { convertMillionToK, convert_time, timeAgo } from "../utils/helper";
 import useChannel from "../utils/useChannel";
 
 
 const VideoCard = ({ info }) => {
     const showMenu = useSelector((state) => state.toggle.showMenu);
     const channelInfo = useChannel(info?.snippet?.channelId);
-
+    console.log(info?.contentDetails?.duration)
     return (showMenu ? (
-        <div className="w-80 m-2">
-            <div>
+        <div className="w-80 m-2 z-0">
+            <div className="relative ">
                 <img className="rounded-xl h-48 w-80 object-cover" alt="" src={info?.snippet?.thumbnails?.high?.url} />
+                <p className="absolute bottom-2 right-2  text-white bg-black px-1 rounded-md text-sm">{convert_time(info?.contentDetails?.duration)}</p>
             </div>
             <div className="flex ">
                 <div className="p-2">
@@ -27,8 +28,10 @@ const VideoCard = ({ info }) => {
         </div>
     ) : (
         <div className="w-96 m-2 ">
-            <div>
+            <div className="relative">
                 <img className="rounded-xl h-56 w-96 object-cover" alt="" src={info?.snippet?.thumbnails?.high?.url} />
+                <p className="absolute bottom-2 right-2  text-white bg-black px-1 rounded-md text-sm">{convert_time(info?.contentDetails?.duration)}</p>
+
             </div>
             <div className="flex ">
                 <div className="p-2">

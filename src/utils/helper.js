@@ -73,6 +73,21 @@ export function timeAgo(timestamp) {
   }
 }
 
-// const timestamp = '2023-12-29T05:38:35Z';
-// const result = timeAgo(timestamp);
-// console.log(result);
+export function convert_time(youtubeTime) {
+  const match = youtubeTime?.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+
+  if (!match) {
+    return "Invalid time format";
+  }
+
+  const hours = parseInt(match[1] ? match[1].slice(0, -1) : 0, 10);
+  const minutes = parseInt(match[2] ? match[2].slice(0, -1) : 0, 10);
+  const seconds = parseInt(match[3] ? match[3].slice(0, -1) : 0, 10);
+
+  const hoursString = hours > 0 ? hours.toString() : "";
+  const minutesString = minutes > 0 ? minutes.toString().padStart(2, "0") : "";
+  const secondsString = seconds.toString().padStart(2, "0");
+
+  const timeParts = [hoursString, minutesString, secondsString].filter(part => part !== "");
+  return timeParts.join(":");
+}
