@@ -3,12 +3,18 @@ import { NewLine, convertMillionToK } from "../utils/helper";
 import { useState } from "react";
 import { YOUTUBE_API_KEY } from "../constant";
 import { useSelector } from "react-redux";
-import { useEffect } from "react"; 
+import { useEffect } from "react";
+import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
+import { TbShare3 } from "react-icons/tb";
+import { LiaDownloadSolid } from "react-icons/lia";
+
+
+
 
 const VideoInfo = ({ info, channelInfo }) => {
   const [seeMore, setSeeMore] = useState(false);
   const accessToken = sessionStorage.getItem('accessToken')
-  
+
   const handleOnClick = () => {
     setSeeMore(!seeMore);
   }
@@ -58,11 +64,13 @@ const VideoInfo = ({ info, channelInfo }) => {
             <p className="text-xs text-slate-900">{convertMillionToK(channelInfo?.statistics?.subscriberCount)}</p>
           </pre>
         </Link>
-        <button className="text-white bg-black px-3 py-1 rounded-full ml-2">Subscribe</button>
-        <button className="px-3 py-1 m-1 rounded-full bg-gray-200 ml-auto font-medium" onClick={handleRateVideo} >👍 {convertMillionToK(info?.statistics?.likeCount)}</button>
-        <button className="px-3 py-1 m-1 rounded-full bg-gray-200">👎</button>
-        <button className="px-3 py-1 m-1 rounded-full bg-gray-200">share</button>
-        <button className="px-3 py-1 m-1 rounded-full bg-gray-200">Downloads</button>
+        <button className="text-white bg-black px-3 py-2 rounded-full ml-2">Subscribe</button>
+        <div className="rounded-full bg-gray-200 flex  px-3 py-1 items-center space-x-2 ml-auto">
+          <button className="flex gap-2 items-center pr-2 border-gray-500 border-r-2 " onClick={handleRateVideo} ><FiThumbsUp /> {convertMillionToK(info?.statistics?.likeCount)}</button>
+          <button className=""><FiThumbsDown /></button>
+        </div>
+        <button className="px-3 py-1 m-1 rounded-full bg-gray-200 flex items-center gap-1"><TbShare3 /> share</button>
+        <button className="px-3 py-1 m-1 rounded-full bg-gray-200 flex items-center gap-1"><LiaDownloadSolid />Downloads</button>
         <button className="px-3 py-1 m-1 rounded-full bg-gray-200">...</button>
       </div>
       <div className="bg-gray-200 rounded-xl p-3">
