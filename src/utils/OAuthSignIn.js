@@ -9,7 +9,7 @@ function OAuthSignIn() {
     // Parameters to pass to OAuth 2.0 endpoint.
     var params = {
       'client_id': OAUTH_CLIENT_ID,
-      'redirect_uri': 'http://localhost:3000',
+      'redirect_uri': process.env.REACT_APP_REDIRECT_URI,
       'response_type': 'token',
       'scope': 'https://www.googleapis.com/auth/youtube.force-ssl',
       'include_granted_scopes': 'true',
