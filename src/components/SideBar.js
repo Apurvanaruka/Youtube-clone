@@ -6,12 +6,11 @@ import { MdOutlineSubscriptions } from "react-icons/md";
 import { IoCopyOutline } from "react-icons/io5";
 
 
-
 const SidePannel = () => {
-
+    
     return (
-        <div className="max-w-74px m-1 py-2 px-1">
-            <ul className="space-y-4 text-3xl" >
+        <div className="sm:visible invisible max-w-20 m-1 py-2 px-1">
+            <ul className="sm:visible invisible space-y-4 text-3xl" >
                 <Link to='/' className="flex flex-col items-center space-y-2">
                     <li><VscHome /></li>
                     <p className="text-[12px]" >Home</p>
@@ -31,7 +30,6 @@ const SidePannel = () => {
                     <IoCopyOutline />
                     </li><p className="text-[10px]" >You</p>
                 </Link>
-
             </ul>
         </div>
     )
@@ -42,7 +40,7 @@ const SideBar = () => {
 
     return (showMenu ? <SidePannel /> : (
 
-        <div className="pl-7 shadow-lg pr-16 min-w-60 overflow-y-scroll no-scrollbar">
+        <div className="sm:pl-7 shadow-lg sm:pr-16 min-w-60 overflow-y-scroll no-scrollbar">
             <ul className="space-y-2  font-bold">
 
 
