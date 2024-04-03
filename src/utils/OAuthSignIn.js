@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { OAUTH_CLIENT_ID } from "../constant";
 function OAuthSignIn() {
 
@@ -9,7 +8,7 @@ function OAuthSignIn() {
     // Parameters to pass to OAuth 2.0 endpoint.
     var params = {
       'client_id': OAUTH_CLIENT_ID,
-      'redirect_uri': process.env.REACT_APP_REDIRECT_URI,
+      'redirect_uri': window.location.origin,
       'response_type': 'token',
       'scope': 'https://www.googleapis.com/auth/youtube.force-ssl',
       'include_granted_scopes': 'true',

@@ -6,11 +6,10 @@ import { MdOutlineSubscriptions } from "react-icons/md";
 import { IoCopyOutline } from "react-icons/io5";
 
 
-const SidePannel = () => {
-    
+const SidePannel = () => {    
     return (
-        <div className="sm:visible invisible max-w-20 m-1 py-2 px-1">
-            <ul className="sm:visible invisible space-y-4 text-3xl" >
+        <div className="max-w-20 m-1 py-2 px-1">
+            <ul className="space-y-4 text-3xl" >
                 <Link to='/' className="flex flex-col items-center space-y-2">
                     <li><VscHome /></li>
                     <p className="text-[12px]" >Home</p>
