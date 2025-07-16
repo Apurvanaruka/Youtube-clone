@@ -132,7 +132,7 @@ const RecommendationVideo = ( { info } ) => {
                 loader={<p className="flex justify-center">Loading...</p>}
                 endMessage={<p className="flex justify-center">No More Videos</p>}
                 scrollableTarget="watchpage">
-                {searchResult?.map((item) => <Link to={'watch?v=' + item?.id?.videoId} key={item?.id?.videoId}><VideoCard item={item} /></Link>)}
+                {searchResult?.map((item) => <Link to={'/watch?v=' + item?.id?.videoId} key={item?.id?.videoId}><VideoCard item={item} /></Link>)}
             </InfiniteScroll>
     );
 }

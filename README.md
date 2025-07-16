@@ -1,70 +1,176 @@
-# Getting Started with Create React App
+# 📺 YouTube Clone — React + Google OAuth2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A **YouTube clone web app** built with **React**, **Redux Toolkit**, **TailwindCSS**, and **Google OAuth2** for authentication.  
+This project demonstrates searching YouTube videos, viewing details, comments, likes/dislikes, and more — using the **YouTube Data API v3**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+✅ Google OAuth2 login  
+✅ Video search using YouTube Data API  
+✅ Video details view  
+✅ Play videos  
+✅ Comments section  
+✅ Like & dislike videos  
+✅ Channel info  
+✅ Simple state management with Redux Toolkit  
+✅ Tailwind CSS for responsive UI
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🧩 Tech Stack
 
-### `npm test`
+- **React 18**
+- **Redux Toolkit**
+- **React Router DOM**
+- **Tailwind CSS**
+- **Google OAuth2**
+- **YouTube Data API v3**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🔑 APIs & Constants
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project uses the following endpoints:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```js
+export const YOUTUBE_API_KEY = "<YOUR_YOUTUBE_API_KEY>";
+export const OAUTH_CLIENT_ID = "<YOUR_GOOGLE_OAUTH_CLIENT_ID>";
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+export const YOUTUBE_DATA_API =
+  "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20";
 
-### `npm run eject`
+export const YOUTUBE_SUGGESTION_API =
+  "https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+export const YOUTUBE_COMMENT_API =
+  "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&maxResults=5&textFormat=plainText&videoId=";
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+export const YOUTUBE_VIDEO_INFO_API =
+  "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=";
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+export const YOUTUBE_CHANNEL_INFO_API =
+  "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=";
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+export const YOUTUBE_SEARCH_API =
+  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=";
+````
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🧰 State Management
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app uses **Redux Toolkit** with these slices:
 
-### Code Splitting
+* **`appSlice`** — UI state (like toggles)
+* **`cacheSlice`** — caches search suggestions (if used)
+* **`chatSlice`** — handles live chat features (if integrated)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```js
+const store = configureStore({
+  reducer: {
+    toggle: appSlice,
+    suggestionCache: cacheSlice,
+    LiveChatSlice: chatSlice,
+  },
+});
+```
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔐 Google OAuth2
 
-### Making a Progressive Web App
+* Uses Google’s **OAuth2** implicit flow.
+* Requires:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  * A **Google Cloud Project**
+  * OAuth2 **Client ID** for Web Application
+  * Authorized redirect URI (e.g., `http://localhost:3000`)
 
-### Advanced Configuration
+👉 **Important:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* Add your Google account as a **test user** while the app is unverified.
+* Use **OAuth consent screen** in Google Cloud Console.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## ⚙️ How to Run Locally
 
-### `npm run build` fails to minify
+1️⃣ Clone the repo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
+
+2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+3️⃣ Setup your `.env`:
+
+```bash
+REACT_APP_YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY
+REACT_APP_OAUTH2_API_KEY=YOUR_GOOGLE_CLIENT_ID
+```
+
+4️⃣ Start the dev server
+
+```bash
+npm start
+```
+
+---
+
+## 🔄 Basic Workflow
+
+```mermaid
+graph TD
+  A[User visits site] --> B[Clicks Sign In with Google]
+  B --> C[OAuth2 flow: Google Consent Screen]
+  C --> D[Redirect back with access_token]
+  D --> E[Store token in sessionStorage]
+  E --> F[User searches video]
+  F --> G[Frontend calls YouTube Search API with token]
+  G --> H[API returns search results]
+  H --> I[User clicks video]
+  I --> J[Fetch video details, comments, likes]
+  J --> K[Render video page]
+```
+
+---
+
+## 🗂️ Simple Architecture
+
+```mermaid
+graph TD
+  User[User Browser]
+  React[React App]
+  Redux[Redux Store]
+  Google[Google OAuth2]
+  YouTube[YouTube Data API]
+
+  User -->|Clicks| React
+  React -->|Handles Routing & UI| Redux
+  React -->|OAuth Flow| Google
+  React -->|Fetch Video Data| YouTube
+  Redux -->|State Management| React
+```
+
+---
+
+## 📃 License
+
+This project is for **educational/demo purposes only**.
+For real production apps, you must comply with **Google API terms**, handle **OAuth PKCE**, and get proper **API verification**.
+
+---
+
+## 🙌 Author
+
+**Developed by \[APURVA SINGH]**
+
+----

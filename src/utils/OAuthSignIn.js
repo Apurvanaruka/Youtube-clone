@@ -7,7 +7,7 @@ function OAuthSignIn() {
     console.log(OAUTH_CLIENT_ID)
     // Parameters to pass to OAuth 2.0 endpoint.
     var params = {
-      'client_id': OAUTH_CLIENT_ID,
+      'client_id': "12739274957-vpicidbhk31j1c7e5ckkq2gceemlq5ke.apps.googleusercontent.com",
       'redirect_uri': window.location.origin,
       'response_type': 'token',
       'scope': 'https://www.googleapis.com/auth/youtube.force-ssl',
